@@ -1,27 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reportagem</title>
+<meta charset="UTF-8">
+<title>CEP</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+#video-fundo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+/* botão lilás */
+.btn-lilas{
+    background-color: #6093d4;
+    color: white;
+}
+
+.btn-lilas:hover{
+    background-color: #68b2f0;
+}
+
+/* caixa */
+.caixa {
+    max-width: 350px;
+    margin: 70px auto;
+    padding: 20px;
+    border: 1px solid #031833;
+    border-radius: 20px;
+    background-position: center;  
+    background-color: rgb(23, 103, 168);
+}
+</style>
+
 </head>
 
 <body>
-    <div style="font-size: medium;font-family: 'Times New Roman', Times, serif; 30px; color:blue"> 
-     <p style="color: rgb(156, 7, 112);">O que significa quando uma pessoa não quer abraçar ou ser abraçada, segundo a psicologia?</p>
-      De modo geral, um abraço é um símbolo de proximidade e afeto. É uma demonstração física de vínculo e faz parte da comunicação não verbal. Além disso, pesquisas mostram que o toque pode transmitir diversas emoções, como simpatia, amor ou, em alguns casos, desconforto, sendo essencial para o desenvolvimento físico e psicológico das crianças.
-    No entanto, algumas pessoas sentem uma certa aversão ao toque, principalmente quando se trata de um abraço.</div>
-    
-    <div><br> 
-     <p>O que significa quando uma pessoa não quer abraçar ou ser abraçada, segundo a psicologia?</p>
-      De modo geral, um abraço é um símbolo de proximidade e afeto. É uma demonstração física de vínculo e faz parte da comunicação não verbal. Além disso, pesquisas mostram que o toque pode transmitir diversas emoções, como simpatia, amor ou, em alguns casos, desconforto, sendo essencial para o desenvolvimento físico e psicológico das crianças. 
-      No entanto, algumas pessoas sentem uma certa aversão ao toque, principalmente quando se trata de um abraço.</div><br>
 
-<div> 
-     <p>O que significa quando uma pessoa não quer abraçar ou ser abraçada, segundo a psicologia?</p>
-      De modo geral, um abraço é um símbolo de proximidade e afeto. É uma demonstração física de vínculo e faz parte da comunicação não verbal. Além disso, pesquisas mostram que o toque pode transmitir diversas emoções, como simpatia, amor ou, em alguns casos, desconforto, sendo essencial para o desenvolvimento físico e psicológico das crianças. 
-      No entanto, algumas pessoas sentem uma certa aversão ao toque, principalmente quando se trata de um abraço.</div>
+<video autoplay muted loop id="video-fundo">
+<source src="cachoeira.mp4" type="video/mp4">
+</video>
+
+<div class="caixa">
+
+    <h4 style="color: #020101;">Consultar CEP</h4>
+
+    <input type="text" id="cep" class="form-control mb-2" placeholder="Digite o CEP">
+
+    <button class="btn btn-lilas mb-3" onclick="buscarCEP()"><b style="color: rgb(2, 11, 12);""> Buscar</b>
+
+    </button>
+
+    <input type="text" id="rua" class="form-control mb-2" placeholder="Rua" readonly>
+    <input type="text" id="bairro" class="form-control mb-2" placeholder="Bairro" readonly>
+    <input type="text" id="cidade" class="form-control mb-2" placeholder="Cidade" readonly>
+
+</div>
+
+<script>
+function buscarCEP(){
+
+    let cep = document.getElementById("cep").value;
+
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+    .then(r => r.json())
+    .then(d => {
+
+        document.getElementById("rua").value = d.logradouro;
+        document.getElementById("bairro").value = d.bairro;
+        document.getElementById("cidade").value = d.localidade;
+
+    });
+
+}
+</script>
+
 
 
 </body>
-</html
+</html>

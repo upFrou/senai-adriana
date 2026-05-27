@@ -9,23 +9,23 @@
 
 <style>
 
-
-body {
-    background-image: url("fd.jpg");
-    background-size: cover;        /* cobre toda a tela */
-    background-position: center;    /* centraliza */
-    background-repeat: no-repeat;   /* não repete */
+#video-fundo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    z-index: -1;
 }
-
-
 /* botão lilás */
 .btn-lilas{
-    background-color: #c98d48;
+    background-color: #6093d4;
     color: white;
 }
 
 .btn-lilas:hover{
-    background-color: #dbb479;
+    background-color: #68b2f0;
 }
 
 /* caixa */
@@ -33,16 +33,20 @@ body {
     max-width: 350px;
     margin: 70px auto;
     padding: 20px;
-    border: 1px solid #c2a792;
+    border: 1px solid #031833;
     border-radius: 20px;
     background-position: center;  
-    background-color: rgb(221, 197, 164);
+    background-color: rgb(23, 103, 168);
 }
 </style>
 
 </head>
 
 <body>
+
+<video autoplay muted loop id="video-fundo">
+<source src="cachoeira.mp4" type="video/mp4">
+</video>
 
 <div class="caixa">
 

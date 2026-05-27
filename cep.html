@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar CEP</title>
+ <style>
+
+
+
+
+
+ </style>
+<</head>
+
+<body>
+
+    <h2 style="font-family: Arial, Helvetica, sans-serif;color: blueviolet;">Consulta de CEP</h2>
+
+    <input type="text" id="cep" placeholder="Digite o CEP">
+    <!--O input cria um campo para digitar, o placeholder, deixa dentro da caixa criada o nome que deseja-->
+    <button onclick="buscarCEP()">Buscar</button>
+
+    <h3 style="font-family: Arial, Helvetica, sans-serif;color: blueviolet;">Endereço:</h3>
+
+    <p>Rua: <span id="rua"></span></p>
+    <p>Número: <span id = "Número"></span></p>
+    <p>Bairro: <span id="bairro"></span></p>
+    <p>Cidade: <span id="cidade"></span></p>
+
+    <script>
+
+        function buscarCEP() {
+
+            let cep = document.getElementById("cep").value;
+
+            fetch("https://viacep.com.br/ws/" + cep + "/json/")
+            .then(resposta => resposta.json())
+            .then(dados => {
+
+                document.getElementById("rua").innerText = dados.logradouro;
+                document.getElementById("Número").innerText = dados.numero;
+                document.getElementById("bairro").innerText = dados.bairro;
+                document.getElementById("cidade").innerText = dados.localidade;
+
+            });
+
+        }
+
+    </script>
+
+</body>
+</html>
+</body>
+</html>

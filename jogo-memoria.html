@@ -438,7 +438,7 @@ button:active { transform: translateY(0); opacity: 0.85; }
 </div>
 <!-- BOTÃO -->
 <button id="btn-reiniciar" onclick="iniciarJogo()">↺ Novo Jogo</button>
-
+<button onclick="somDerrota.play()">Testar Som</button>
 <!-- DICA PARA ALUNOS -->
 <p class="dica">
   Dica: edite as variáveis <code>:root</code> no CSS para mudar o visual!
@@ -451,7 +451,15 @@ button:active { transform: translateY(0); opacity: 0.85; }
   const imagens = [ 'arma.jpg' , 'cogumelo.png' , 'eri.jpg' , 'OIP.jpg', 'tre.jpg' , 'thumb-1920-1295032.jpg' , 'jj.jpg', 'l.jpg'];
 // Dica: troque por outros emojis ou use letras, números, etc.
 const somDerrota = new Audio('zumbi.mp3');
+somDerrota.addEventListener('canplaythrough', () => {
+  console.log('Áudio carregado com sucesso');
+});
+
+somDerrota.addEventListener('error', () => {
+  console.log('Erro ao carregar áudio');
+});
 const TOTAL_PARES = imagens.length; // 8 pares = 16 cartas
+
 
 // ============================================================
 //  ESTADO DO JOGO
@@ -621,29 +629,26 @@ function atualizarTempo() {
   document.getElementById('tempo').textContent =
     `${tempoRestante}s`;
 
-  tempoRestante--;
+ if (tempoRestante < 0) {
+  clearInterval(timerID);
 
-  if (tempoRestante < 0) {
-    clearInterval(timerID);
-    
-somDerrota.play();
+  somDerrota.currentTime = 0;
+  somDerrota.currentTime = 0;
 
+somDerrota.play().catch(err => {
+  console.log('Erro ao reproduzir:', err);
+});
+
+  document.querySelectorAll('.carta').forEach(carta => {
+    carta.style.pointerEvents = 'none';
+  });
+
+  setTimeout(() => {
     alert("⏰ Tempo esgotado!");
-
-    document.querySelectorAll('.carta').forEach(carta => {
-      carta.style.pointerEvents = 'none';
-    });
-  }
+  }, 500);
 }
 
 function atualizarProgresso(pct) {
   document.getElementById('progresso').style.width = `${pct}%`;
 }
-
-// ============================================================
-//  INICIAR AO CARREGAR
-// ============================================================
-iniciarJogo();
-</script>
-</body>
-</html>
+}

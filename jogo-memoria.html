@@ -431,7 +431,11 @@ button:active { transform: translateY(0); opacity: 0.85; }
   <h2>Parabéns!</h2>
   <p id="msg-vitoria">Você completou o jogo!</p>
 </div>
-
+<div class="vitoria" id="derrota">
+  <div class="vitoria-emoji">☠️</div>
+  <h2>Você Perdeu!</h2>
+  <p>O tempo acabou.</p>
+</div>
 <!-- BOTÃO -->
 <button id="btn-reiniciar" onclick="iniciarJogo()">↺ Novo Jogo</button>
 
@@ -446,7 +450,7 @@ button:active { transform: translateY(0); opacity: 0.85; }
 // ============================================================
   const imagens = [ 'arma.jpg' , 'cogumelo.png' , 'eri.jpg' , 'OIP.jpg', 'tre.jpg' , 'thumb-1920-1295032.jpg' , 'jj.jpg', 'l.jpg'];
 // Dica: troque por outros emojis ou use letras, números, etc.
-
+const somDerrota = new Audio('zumbi.mp3');
 const TOTAL_PARES = imagens.length; // 8 pares = 16 cartas
 
 // ============================================================
@@ -621,6 +625,8 @@ function atualizarTempo() {
 
   if (tempoRestante < 0) {
     clearInterval(timerID);
+    
+somDerrota.play();
 
     alert("⏰ Tempo esgotado!");
 

@@ -11,41 +11,38 @@
    🎨 VARIÁVEIS — ALTERE AQUI PARA MUDAR O VISUAL DO JOGO
    ============================================================ */
 :root {
-  /* Cores principais */
-  --cor-fundo:       #0d0d1a;
-  --cor-painel:      #1a1a2e;
-  --cor-borda:       #2a2a4a;
+  /* Fundo geral (mais escuro, sujo, survival) */
+  --cor-fundo: #070b08;
+  --cor-painel: #111915;
+  --cor-borda: #1c2a21;
 
-  /* Carta */
-  --cor-carta-verso: #1e1e3a;
-  --cor-carta-frente:#16213e;
-  --cor-carta-borda: #3a3a6a;
-  --cor-carta-hover: #252550;
+  /* Carta (mais orgânico, verde escuro) */
+  --cor-carta-verso: #15211a;
+  --cor-carta-frente: #0f1713;
+  --cor-carta-borda: #24362b;
+  --cor-carta-hover: #1e2f25;
 
-  /* Estados */
-  --cor-acerto:      #00e5a0;
-  --cor-erro:        #ff4f6a;
-  --cor-destaque:    #7c6af7;
-  --cor-ouro:        #ffd700;
+  /* Estados (infectado / survival) */
+  --cor-acerto: #4ee3a0;   /* verde vivo tipo “cura” */
+  --cor-erro: #e05252;     /* sangue/alerta */
+  --cor-destaque: #7fb38a; /* verde apagado natural */
+  --cor-ouro: #c7b98a;     /* sujeira/metal velho */
 
-  /* Textos */
-  --cor-texto:       #e8e8f0;
-  --cor-texto-dim:   #6b6b9a;
+  /* Texto mais “apagado survival” */
+  --cor-texto: #d7e0d7;
+  --cor-texto-dim: #6f7f73;
 
-  /* Tipografia */
-  --fonte-titulo:    'Syne', sans-serif;
-  --fonte-corpo:     'Space Mono', monospace;
+  /* Mantém igual */
+  --fonte-titulo: 'Syne', sans-serif;
+  --fonte-corpo: 'Space Mono', monospace;
 
-  /* Tamanhos */
-  --tamanho-carta:   100px;
-  --gap-grade:       12px;
-  --raio-carta:      12px;
-  --raio-painel:     16px;
+  --tamanho-carta: 100px;
+  --gap-grade: 8px;
+  --raio-carta: 10px;
+  --raio-painel: 14px;
 
-  /* Emojis das cartas — 8 pares */
-  --emoji-size:      2.4rem;
+  --emoji-size: 2.3rem;
 }
-
 /* ============================================================
    RESET & BASE
    ============================================================ */
@@ -53,12 +50,20 @@
 
 body {
   min-height: 100vh;
-  background: var(--cor-fundo);
   background-image:
     radial-gradient(ellipse 80% 60% at 20% 10%, #1a0a3e55 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 80% 90%, #001a3e44 0%, transparent 60%);
-  font-family: var(--fonte-corpo);
+    radial-gradient(ellipse 60% 50% at 80% 90%, #001a3e44 0%, transparent 60%),
+    url('yh.jpg');
+
+  background-color: var(--cor-fundo);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  font-family: Arial, Helvetica, sans-serif;
   color: var(--cor-texto);
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -75,19 +80,19 @@ header {
 }
 
 header h1 {
-  font-family: var(--fonte-titulo);
-  font-size: clamp(1.8rem, 5vw, 2.8rem);
-  font-weight: 800;
-  letter-spacing: -1px;
-  background: linear-gradient(135deg, var(--cor-destaque), var(--cor-acerto));
+  background: linear-gradient(90deg, #556B2F, #8B4513);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 800;
 }
 
 header p {
   font-size: 0.78rem;
-  color: var(--cor-texto-dim);
+  color: rgb(136, 83, 15);
   margin-top: 4px;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -100,36 +105,39 @@ header p {
   display: flex;
   gap: 1rem;
   animation: fadeDown 0.6s 0.1s ease both;
-}
-
-.stat {
-  background: var(--cor-painel);
+  background: rgba(10, 15, 10, 0.85); /* exemplo estilo The Last of Us */
+  padding: 1rem;
+  border-radius: var(--raio-painel);
   border: 1px solid var(--cor-borda);
+  backdrop-filter: blur(6px);
+}
+.stat {
+  background: rgba(10, 15, 12, 0.85);
+  backdrop-filter: blur(6px);  /* verde quase preto */
+  border: 1px solid rgba(120, 140, 120, 0.25);
   border-radius: var(--raio-painel);
   padding: 0.7rem 1.4rem;
   text-align: center;
   min-width: 90px;
   transition: transform 0.2s;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.4);
 }
-
 .stat:hover { transform: translateY(-2px); }
-
 .stat-valor {
   font-family: var(--fonte-titulo);
   font-size: 1.8rem;
-  font-weight: 800;
-  color: var(--cor-destaque);
-  line-height: 1;
+  font-weight: 700;
+  color: rgba(210, 220, 210, 0.9); /* branco esverdeado apagado */
+  letter-spacing: 1px;
 }
 
 .stat-valor.pulsar { animation: pulsar 0.4s ease; }
 
 .stat-label {
   font-size: 0.65rem;
-  color: var(--cor-texto-dim);
-  letter-spacing: 1.5px;
+  color: rgba(160, 170, 160, 0.6);
+  letter-spacing: 2px;
   text-transform: uppercase;
-  margin-top: 2px;
 }
 
 /* ============================================================
@@ -138,30 +146,29 @@ header p {
 .grade {
   display: grid;
   grid-template-columns: repeat(4, var(--tamanho-carta));
-  gap: var(--gap-grade);
-  animation: fadeUp 0.6s 0.2s ease both;
+  gap: 6px;
+  justify-content: center;
 }
-
 /* ============================================================
    CARTA — PERSPECTIVA 3D
    ============================================================ */
 .carta {
   width: var(--tamanho-carta);
-  height: var(--tamanho-carta);
+  aspect-ratio: 1 / 1;
   cursor: pointer;
   perspective: 600px;
   animation: entrar 0.5s ease both;
+
 }
 
 /* atraso escalonado por índice (definido via JS) */
 
-.carta-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: var(--raio-carta);
+.carta {
+  width: clamp(60px, 8vw, 110px);
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+  perspective: 600px;
+  animation: entrar 0.5s ease both;
 }
 
 .carta.virada .carta-inner,
@@ -174,66 +181,54 @@ header p {
 .carta-verso {
   position: absolute;
   inset: 0;
-  border-radius: var(--raio-carta);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  border: 1px solid rgba(80, 110, 90, 0.35);
+
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--cor-carta-borda);
-  font-size: var(--emoji-size);
-  user-select: none;
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-/* Verso: o que o jogador vê antes de clicar */
+/* frente virada */
+.carta-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform .6s;
+  transform-style: preserve-3d;
+}
+
+.carta-frente img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
 .carta-verso {
-  background: var(--cor-carta-verso);
-  background-image:
-    repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 6px,
-      #ffffff05 6px,
-      #ffffff05 7px
-    );
-  font-size: 1.6rem;
-  color: var(--cor-texto-dim);
-  transition: background 0.2s, border-color 0.2s;
+  background: #1c2a21;
+  border-radius: 10px;
 }
 
-.carta:not(.virada):not(.acertada):hover .carta-verso {
-  background: var(--cor-carta-hover);
-  border-color: var(--cor-destaque);
-}
-
-.carta:not(.virada):not(.acertada):hover .carta-verso .icone-verso {
-  animation: girar 0.5s ease;
-}
-
-/* Frente: emoji revelado */
 .carta-frente {
-  background: var(--cor-carta-frente);
+  background: #111915;
+  border-radius: 10px;
   transform: rotateY(180deg);
 }
 
 /* Estado acertado */
 .carta.acertada .carta-frente {
-  border-color: var(--cor-acerto);
-  background: #001a0e;
-  box-shadow: 0 0 18px #00e5a040, inset 0 0 30px #00e5a008;
-  animation: brilharAcerto 0.5s ease;
+  border-color: rgba(120, 200, 140, 0.5);
+  background: rgba(10, 25, 18, 0.95);
+  box-shadow: 0 0 12px rgba(0, 200, 120, 0.15),
+              inset 0 0 20px rgba(0, 255, 150, 0.05);
 }
-
 /* Estado errado */
-.carta.errado .carta-inner {
-  animation: shake 0.5s ease;
-}
-
 .carta.errado .carta-frente {
-  border-color: var(--cor-erro);
-  background: #1a0008;
+  border-color: rgba(200, 80, 80, 0.4);
+  background: rgba(30, 10, 15, 0.9);
 }
-
 /* ============================================================
    MENSAGEM DE VITÓRIA
    ============================================================ */
@@ -242,29 +237,35 @@ header p {
   flex-direction: column;
   align-items: center;
   gap: 0.8rem;
-  background: var(--cor-painel);
-  border: 1px solid var(--cor-borda);
+
+  background: rgba(25, 35, 28, 0.85);
+  border: 1px solid rgba(140, 160, 140, 0.25);
+
   border-radius: var(--raio-painel);
   padding: 2rem 2.5rem;
   text-align: center;
+
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+
   animation: escalar 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
-
-.vitoria.visivel { display: flex; }
-
-.vitoria-emoji { font-size: 3.5rem; animation: flutuar 2s ease-in-out infinite; }
-
+.vitoria-imagens {
+  font-size: 3.2rem;
+  opacity: 0.85;
+  animation: flutuar 3s ease-in-out infinite;
+}
 .vitoria h2 {
   font-family: var(--fonte-titulo);
   font-size: 1.8rem;
-  background: linear-gradient(135deg, var(--cor-ouro), var(--cor-acerto));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+
+  color: rgba(220, 230, 220, 0.9);
+  letter-spacing: 1px;
 }
-
-.vitoria p { font-size: 0.8rem; color: var(--cor-texto-dim); }
-
+.vitoria p {
+  font-size: 0.8rem;
+  color: rgba(180, 190, 180, 0.6);
+}
 /* ============================================================
    BOTÃO
    ============================================================ */
@@ -397,7 +398,7 @@ button:active { transform: translateY(0); opacity: 0.85; }
 
 <header>
   <h1>🧠 Jogo da Memória</h1>
-  <p>SENAI · Programador Front-End</p>
+  <p>the last of us</p>
 </header>
 
 <!-- PLACAR -->
@@ -443,10 +444,10 @@ button:active { transform: translateY(0); opacity: 0.85; }
 // ============================================================
 //  🎮 CONFIGURAÇÕES — altere aqui para personalizar
 // ============================================================
-const EMOJIS = ['🚀', '🎸', '🦊', '🌈', '🔥', '💎', '🎯', '⚡'];
+  const imagens = [ 'arma.jpg' , 'cogumelo.png' , 'eri.jpg' , 'OIP.jpg', 'tre.jpg' , 'thumb-1920-1295032.jpg' , 'jj.jpg', 'l.jpg'];
 // Dica: troque por outros emojis ou use letras, números, etc.
 
-const TOTAL_PARES = EMOJIS.length; // 8 pares = 16 cartas
+const TOTAL_PARES = imagens.length; // 8 pares = 16 cartas
 
 // ============================================================
 //  ESTADO DO JOGO
@@ -457,6 +458,7 @@ let tentativas     = 0;    // total de tentativas
 let bloqueado      = false;// impede clique durante animação
 let inicio         = null; // timestamp de início
 let timerID        = null; // ID do setInterval do cronômetro
+let tempoRestante = 60;
 
 // ============================================================
 //  INICIALIZAR / REINICIAR JOGO
@@ -471,7 +473,8 @@ function iniciarJogo() {
   // Resetar UI
   document.getElementById('tentativas').textContent = '0';
   document.getElementById('acertos').textContent    = '0';
-  document.getElementById('tempo').textContent      = '0s';
+tempoRestante = 60;
+document.getElementById('tempo').textContent = '01:00';
   document.getElementById('progresso').style.width  = '0%';
   document.getElementById('vitoria').classList.remove('visivel');
 
@@ -481,20 +484,20 @@ function iniciarJogo() {
   timerID = setInterval(atualizarTempo, 1000);
 
   // Criar e embaralhar cartas
-  const pares    = [...EMOJIS, ...EMOJIS];
+  const pares    = [...imagens, ...imagens];
   const embaralhadas = embaralhar(pares);
 
   // Renderizar grade
   const grade = document.getElementById('grade');
   grade.innerHTML = '';
 
-  embaralhadas.forEach((emoji, i) => {
+  embaralhadas.forEach((imagem, i) => {
     const carta = document.createElement('div');
     carta.className = 'carta';
     carta.setAttribute('role', 'listitem');
     carta.setAttribute('aria-label', 'Carta virada para baixo');
     carta.style.animationDelay = `${i * 40}ms`;
-    carta.dataset.emoji = emoji;
+    carta.dataset.imagem = imagem;
 
     carta.innerHTML = `
       <div class="carta-inner">
@@ -502,8 +505,8 @@ function iniciarJogo() {
           <span class="icone-verso">✦</span>
         </div>
         <div class="carta-frente" aria-hidden="true">
-          ${emoji}
-        </div>
+  <img src="${imagem}" alt="Carta">
+</div>
       </div>`;
 
     carta.addEventListener('click', () => clicarCarta(carta));
@@ -524,7 +527,7 @@ function clicarCarta(carta) {
 
   // Virar a carta
   carta.classList.add('virada');
-  carta.setAttribute('aria-label', `Carta: ${carta.dataset.emoji}`);
+  carta.setAttribute('aria-label', `Carta: ${carta.dataset.imagem}`);
   cartasViradas.push(carta);
 
   // Se só uma carta virada, aguardar próxima
@@ -537,15 +540,15 @@ function clicarCarta(carta) {
 
   const [c1, c2] = cartasViradas;
 
-  if (c1.dataset.emoji === c2.dataset.emoji) {
+  if (c1.dataset.imagem === c2.dataset.imagem) {
     // ✅ PAR ENCONTRADO
     setTimeout(() => {
       c1.classList.add('acertada');
       c2.classList.add('acertada');
-      c1.classList.remove('virado');
-      c2.classList.remove('virado');
-      c1.setAttribute('aria-label', `Par encontrado: ${c1.dataset.emoji}`);
-      c2.setAttribute('aria-label', `Par encontrado: ${c2.dataset.emoji}`);
+      c1.classList.remove('virada');
+      c2.classList.remove('virada');
+      c1.setAttribute('aria-label', `Par encontrado: ${c1.dataset.imagem}`);
+      c2.setAttribute('aria-label', `Par encontrado: ${c2.dataset.imagem}`);
       cartasViradas = [];
       bloqueado     = false;
 
@@ -577,7 +580,7 @@ function clicarCarta(carta) {
 // ============================================================
 function exibirVitoria() {
   clearInterval(timerID);
-  const segundos = Math.round((Date.now() - inicio) / 1000);
+  const segundos = 3600 - tempoRestante;
   const eficiencia = Math.round((TOTAL_PARES / tentativas) * 100);
 
   document.getElementById('msg-vitoria').textContent =
@@ -610,8 +613,21 @@ function atualizarStat(id, valor) {
 }
 
 function atualizarTempo() {
-  const s = Math.round((Date.now() - inicio) / 1000);
-  document.getElementById('tempo').textContent = `${s}s`;
+
+  document.getElementById('tempo').textContent =
+    `${tempoRestante}s`;
+
+  tempoRestante--;
+
+  if (tempoRestante < 0) {
+    clearInterval(timerID);
+
+    alert("⏰ Tempo esgotado!");
+
+    document.querySelectorAll('.carta').forEach(carta => {
+      carta.style.pointerEvents = 'none';
+    });
+  }
 }
 
 function atualizarProgresso(pct) {

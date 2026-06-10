@@ -458,7 +458,7 @@ let tentativas     = 0;    // total de tentativas
 let bloqueado      = false;// impede clique durante animação
 let inicio         = null; // timestamp de início
 let timerID        = null; // ID do setInterval do cronômetro
-let tempoRestante = 60;
+let tempoRestante = 30;
 
 // ============================================================
 //  INICIALIZAR / REINICIAR JOGO
@@ -473,8 +473,8 @@ function iniciarJogo() {
   // Resetar UI
   document.getElementById('tentativas').textContent = '0';
   document.getElementById('acertos').textContent    = '0';
-tempoRestante = 60;
-document.getElementById('tempo').textContent = '01:00';
+tempoRestante = 30;
+document.getElementById('tempo').textContent = '00:30';
   document.getElementById('progresso').style.width  = '0%';
   document.getElementById('vitoria').classList.remove('visivel');
 
@@ -580,7 +580,7 @@ function clicarCarta(carta) {
 // ============================================================
 function exibirVitoria() {
   clearInterval(timerID);
-  const segundos = 3600 - tempoRestante;
+  const segundos = 30 - tempoRestante;
   const eficiencia = Math.round((TOTAL_PARES / tentativas) * 100);
 
   document.getElementById('msg-vitoria').textContent =

@@ -145,27 +145,28 @@ header p {
    ============================================================ */
 .grade {
   display: grid;
-  grid-template-columns: repeat(4, var(--tamanho-carta));
-  gap: 6px;
+  grid-template-columns: repeat(4, 100px);
+  gap: 10px;
   justify-content: center;
 }
 /* ============================================================
    CARTA — PERSPECTIVA 3D
    ============================================================ */
 .carta {
-  width: var(--tamanho-carta);
+  width: clamp(60px, 8vw, 110px);
   aspect-ratio: 1 / 1;
   cursor: pointer;
   perspective: 600px;
   animation: entrar 0.5s ease both;
 
+  position: relative;
 }
-
 /* atraso escalonado por índice (definido via JS) */
 
 .carta {
-  width: clamp(60px, 8vw, 110px);
-  aspect-ratio: 1 / 1;
+  width: 100px;
+  height: 100px;
+  position: relative;
   cursor: pointer;
   perspective: 600px;
   animation: entrar 0.5s ease both;
